@@ -1,9 +1,9 @@
 <p id="notice"><%= notice %></p>
 
-<p>
+<h1 class='page-header'>
   <strong>Name:</strong>
   <%= @album.name %>
-</p>
+</h1>
 
 <p>
   <strong>Year:</strong>
@@ -20,5 +20,26 @@
   <%= @album.band_id %>
 </p>
 
-<%= link_to 'Edit', edit_album_path(@album) %> |
-<%= link_to 'Back', albums_path %>
+<% if @album.tracks.length > 0 %>
+  <ul class='main-list'>
+    <% @album.tracks.each do |track| %>
+      <li><a href="<%= track_url(track) %>"><p><%= track.name %></p></a></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No tracks posted, yet.</p>
+<% end %>
+
+<h4 class='sub-header'>Links</h4>
+<ul class='page-links'>
+  <li><%= link_to 'New Track |', new_album_track_url(@album) %></li>
+  <li><%= link_to 'Edit Album |', edit_album_path(@album) %></li>
+  <li>
+    <form action="<%= album_url(@album) %>" method="POST">
+      <input type="hidden" name="_method" value="DELETE">
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <input type="submit" value="Destroy Album |">
+    </form>
+  </li>
+  <li><%= link_to 'Back', albums_path %></li>
+</ul>
