@@ -1,9 +1,21 @@
 <p id="notice"><%= notice %></p>
 
-<p>
+<h1 class='page-header'>
   <strong>Name:</strong>
   <%= @band.name %>
-</p>
+</h1>
+
+<h3 class='sub-header'>Albums</h3>
+
+<% if @band.albums.length > 0 %>
+  <ul class='main-list'>
+    <% @band.albums.each do |album| %>
+      <li><a href="<%= album_url(album) %>"><p><%= album.name %></p></a></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No albums posted yet.</p>
+<% end %>
 
 <%= link_to 'Edit', edit_band_path(@band) %> |
 <%= link_to 'Back', bands_path %>
