@@ -10,9 +10,14 @@ require 'faker'
 Band.destroy_all
 Album.destroy_all
 
-25.times do
+200.times do
     b = Band.create(name: Faker::Music.band)
-    3.times do
+    5.times do
         a = Album.create(name: Faker::Music.album, band_id: b.id, year: Faker::Number.within(range: 1958..2022), live: Faker::Boolean.boolean(true_ratio: 0.2))
+        i = 1
+        10.times do
+            t = Track.create(name: Faker::Lorem.word, album_id: a.id, ord: i, bonus: Faker::Boolean.boolean(true_ratio: 0.1), lyrics: Faker::Lorem.paragraph(sentence_count: 15))
+            i+=1
+        end
     end
 end
