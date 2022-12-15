@@ -10,6 +10,10 @@
       </ul>
     </div>
   <% end %>
+  <input 
+    type="hidden"
+    name="authenticity_token"
+    value="<%= form_authenticity_token %>">
 
   <div class="field">
     <%= form.label :email %>
@@ -17,23 +21,8 @@
   </div>
 
   <div class="field">
-    <%= form.label :password_digest %>
-    <%= form.text_field :password_digest %>
-  </div>
-
-  <div class="field">
-    <%= form.label :session_token %>
-    <%= form.text_field :session_token %>
-  </div>
-
-  <div class="field">
-    <%= form.label :activated %>
-    <%= form.check_box :activated %>
-  </div>
-
-  <div class="field">
-    <%= form.label :activation_token %>
-    <%= form.text_field :activation_token %>
+    <%= form.label :password %>
+    <%= form.password :password %>
   </div>
 
   <div class="actions">
