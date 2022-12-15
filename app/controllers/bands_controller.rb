@@ -1,22 +1,28 @@
 class BandsController < ApplicationController
-  before_action :set_band, only: %i[ show edit update destroy ]
+  before_action :require_user!
 
   # GET /bands or /bands.json
   def index
     @bands = Band.all
+    render :index
   end
 
   # GET /bands/1 or /bands/1.json
   def show
+    @band = Band.find(params[:id])
+    render :show
   end
 
   # GET /bands/new
   def new
     @band = Band.new
+    render :new
   end
 
   # GET /bands/1/edit
   def edit
+    @band = Band.find(params[:id])
+    render :edit
   end
 
   # POST /bands or /bands.json
@@ -36,6 +42,7 @@ class BandsController < ApplicationController
 
   # PATCH/PUT /bands/1 or /bands/1.json
   def update
+    @band = Band.find(params[:id])
     respond_to do |format|
       if @band.update(band_params)
         format.html { redirect_to band_url(@band), notice: "Band was successfully updated." }
@@ -49,6 +56,7 @@ class BandsController < ApplicationController
 
   # DELETE /bands/1 or /bands/1.json
   def destroy
+    @band = Band.find(params[:id])
     @band.destroy
 
     respond_to do |format|

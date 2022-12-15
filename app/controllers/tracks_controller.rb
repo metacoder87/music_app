@@ -8,15 +8,21 @@ class TracksController < ApplicationController
 
   # GET /tracks/1 or /tracks/1.json
   def show
+    @track = Track.find(params[:id])
+    render :show
   end
 
   # GET /tracks/new
   def new
-    @track = Track.new
+    @album = Album.find(params[:album_id])
+    @track = Track.new(album_id: params[:album_id])
+    render :new
   end
 
   # GET /tracks/1/edit
   def edit
+    @track = Track.find(params[:id])
+    render :edit
   end
 
   # POST /tracks or /tracks.json
@@ -36,6 +42,7 @@ class TracksController < ApplicationController
 
   # PATCH/PUT /tracks/1 or /tracks/1.json
   def update
+    @track = Track.find(params[:id])
     respond_to do |format|
       if @track.update(track_params)
         format.html { redirect_to track_url(@track), notice: "Track was successfully updated." }
@@ -49,10 +56,11 @@ class TracksController < ApplicationController
 
   # DELETE /tracks/1 or /tracks/1.json
   def destroy
+    @track = Track.find(params[:id])
     @track.destroy
 
     respond_to do |format|
-      format.html { redirect_to tracks_url, notice: "Track was successfully destroyed." }
+      format.html { redirect_to album_url(@track.album_id), notice: "Track was successfully destroyed." }
       format.json { head :no_content }
     end
   end
