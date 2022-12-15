@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :notes
   root to: redirect('/bands')
 
   resource :session, only: [:new, :create, :destroy]

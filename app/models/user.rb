@@ -13,6 +13,8 @@ class User < ApplicationRecord
     after_initialize :ensure_session_token
     after_initialize :set_activation_token
 
+    has_many :notes
+
     def self.find_by_credentials(email, passwor)
         user = User.find_by(email: email)
 
