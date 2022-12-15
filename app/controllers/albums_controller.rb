@@ -1,5 +1,5 @@
 class AlbumsController < ApplicationController
-  before_action :set_album, only: %i[ show edit update destroy ]
+  before_action :require_user!
 
   # GET /albums or /albums.json
   def index
@@ -8,15 +8,21 @@ class AlbumsController < ApplicationController
 
   # GET /albums/1 or /albums/1.json
   def show
+    @album = Album.find(params[:id])
+    render :show
   end
 
   # GET /albums/new
   def new
-    @album = Album.new
+    @band = Band.find(params[:band_id])
+    @album = Album.new(band_id: params[:band_id])
+    render :new
   end
 
   # GET /albums/1/edit
   def edit
+    @album = Album.find(params[:id])
+    render :edit
   end
 
   # POST /albums or /albums.json
@@ -49,10 +55,11 @@ class AlbumsController < ApplicationController
 
   # DELETE /albums/1 or /albums/1.json
   def destroy
+    @album = Album.find(params[:id])
     @album.destroy
 
     respond_to do |format|
-      format.html { redirect_to albums_url, notice: "Album was successfully destroyed." }
+      format.html { redirect_to band_url(@album.band_id), notice: "Album was successfully destroyed." }
       format.json { head :no_content }
     end
   end
