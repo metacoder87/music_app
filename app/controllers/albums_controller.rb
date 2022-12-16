@@ -42,6 +42,7 @@ class AlbumsController < ApplicationController
 
   # PATCH/PUT /albums/1 or /albums/1.json
   def update
+    @album = Album.find(params[:id])
     respond_to do |format|
       if @album.update(album_params)
         format.html { redirect_to album_url(@album), notice: "Album was successfully updated." }
