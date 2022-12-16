@@ -13,7 +13,7 @@ Album.destroy_all
 Track.destroy_all
 Note.destroy_all
 4.times do
-    u = User.create(email: Faker::Internet.email, password: Faker::Lorem.word)
+    @u = User.create(email: Faker::Internet.email, password: Faker::Lorem.word)
 end
 200.times do
     b = Band.create(name: Faker::Music.band)
@@ -23,7 +23,7 @@ end
         10.times do
             t = Track.create(name: Faker::Lorem.sentence(word_count: 2), album_id: a.id, ord: i, bonus: Faker::Boolean.boolean(true_ratio: 0.1), lyrics: Faker::Lorem.paragraph(sentence_count: 15))
             i+=1
-            n = Note.create(track_id: t.id, user_id: u.id, content: Faker::Lorem.sentences(number: 1))
+            n = Note.create(track_id: t.id, user_id: @u.id, content: Faker::Lorem.sentences(number: 1))
         end
     end
 end
