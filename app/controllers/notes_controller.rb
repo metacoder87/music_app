@@ -1,45 +1,34 @@
 class NotesController < ApplicationController
-  before_action :set_note, only: %i[ show edit update destroy ]
-
-  # GET /notes or /notes.json
-  def index
-    @notes = Note.all
-  end
-
-  # GET /notes/1 or /notes/1.json
-  def show
-  end
+  before_action :require_user!
 
   # GET /notes/new
   def new
     @note = Note.new
+    render :new
   end
 
   # GET /notes/1/edit
   def edit
+    @note = current_user.notes.find(params[:id])
+    render :edit
   end
 
   # POST /notes or /notes.json
   def create
-    @note = Note.new(note_params)
+    @note = current_user.notes.new(note_params)
 
     respond_to do |format|
-      if @note.save
-        format.html { redirect_to note_url(@note), notice: "Note was successfully created." }
-        format.json { render :show, status: :created, location: @note }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @note.errors, status: :unprocessable_entity }
-      end
+      @note.save
+        format.html { redirect_to track_url(@note.track_id), notice: "Note was successfully created." }
     end
   end
 
   # PATCH/PUT /notes/1 or /notes/1.json
   def update
+    @note = current_user.notes.find(params[:id])
     respond_to do |format|
       if @note.update(note_params)
-        format.html { redirect_to note_url(@note), notice: "Note was successfully updated." }
-        format.json { render :show, status: :ok, location: @note }
+        format.html { redirect_to track_url(@note.track_id), notice: "Note was successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @note.errors, status: :unprocessable_entity }
@@ -49,10 +38,11 @@ class NotesController < ApplicationController
 
   # DELETE /notes/1 or /notes/1.json
   def destroy
+    @note = current_user.notes.find(params[:id])
     @note.destroy
 
     respond_to do |format|
-      format.html { redirect_to notes_url, notice: "Note was successfully destroyed." }
+      format.html { redirect_to track_url(@note.track_id), notice: "Note was successfully destroyed." }
       format.json { head :no_content }
     end
   end
