@@ -7,7 +7,8 @@
 
 <p>
   <strong>Album:</strong>
-  <%= @track.album_id %>
+  <% aname = Album.find_by(id: @track.album_id)%>
+  <%= aname.name %>
 </p>
 
 <p>
@@ -15,22 +16,24 @@
   <%= @track.ord %>
 </p>
 
-<p>
-  <strong>Bonus:</strong>
-  <%= @track.bonus %>
-</p>
+<% if @track.bonus %>
+  <p>
+    <strong>Bonus</strong>
+    <%= @track.bonus %>
+  </p>
+<% end %>
 
 <p>
   <strong>Lyrics:</strong>
   <%= ugly_lyrics(@track.lyrics) %>
 </p>
 
-<%= render "note/form", track: @track %>
+<%= render "notes/form", track: @track %>
 
 <h3 class='sub-header'>Notes</h3>
 
 <% @track.notes.each do |note| %>
-  <%= render "note/note", note: note %>
+  <%= render "notes/note", note: note %>
 <% end %>
 
 <h4 class='sub-header'>Links</h4>
