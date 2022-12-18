@@ -1,32 +1,28 @@
 <p id="notice"><%= notice %></p>
 
 <h1 class='page-header'>
-  <strong>Name:</strong>
+  <% if @track.bonus %>
+    Bonus 
+  <% end %>
+  Song:
   <%= @track.name %>
 </h1>
 
-<p>
-  <strong>Album:</strong>
+<h4 class='sub-header'>
+  Album:
   <% aname = Album.find_by(id: @track.album_id)%>
   <%= aname.name %>
-</p>
+</h4>
 
-<p>
-  <strong>Ord:</strong>
+<h3 class='sub-header'>
+  Ord:
   <%= @track.ord %>
-</p>
+</h3>
 
-<% if @track.bonus %>
-  <p>
-    <strong>Bonus</strong>
-    <%= @track.bonus %>
-  </p>
-<% end %>
-
-<p>
-  <strong>Lyrics:</strong>
+<div>
+  <h3 class='sub-header'>Lyrics:</h3>
   <%= ugly_lyrics(@track.lyrics) %>
-</p>
+</div>
 
 <%= render "notes/form", track: @track %>
 
@@ -38,7 +34,7 @@
 
 <h4 class='sub-header'>Links</h4>
 <ul class='page-links'>
-  <li><%= link_to 'Edit Track', edit_track_path(@track) %></li>
+  <li class='button'><%= link_to 'Edit Track', edit_track_path(@track) %></li>
   <li>
     <form action="<%= track_url(@track) %>" method="POST">
       <input type="hidden" name="_method" value="DELETE">
@@ -46,5 +42,5 @@
       <input type="submit" value="Destroy Track">
     </form>
   </li>
-  <li><%= link_to 'Back to Album', album_url(@track.album) %></li>
+  <li class='button'><%= link_to 'Back to Album', album_url(@track.album) %></li>
 </ul>

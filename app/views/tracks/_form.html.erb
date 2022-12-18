@@ -11,29 +11,34 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-
   <% album = Album.find_by(id: track.album_id) %>
-  <input type="hidden" name="track[album_id]" value="<%= album.id %>">
   <% tracks = Track.where(album_id: album.id)%>
-  <input type="hidden" name="track[ord]" value="<%= tracks.count + 1 %>">
+
   <p>
-    Ord:
+    Track Number:
     <%= tracks.count + 1 %>
   </p>
 
-  <div class="field">
-    <%= form.label :bonus %>
-    <%= form.check_box :bonus %>
-  </div>
+  <br>
 
-  <div class="field">
+  <p class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </p>
+
+  <input type="hidden" name="track[album_id]" value="<%= album.id %>">
+  <input type="hidden" name="track[ord]" value="<%= tracks.count + 1 %>">
+
+  <p class="field">
     <%= form.label :lyrics %>
     <%= form.text_area :lyrics %>
-  </div>
+  </p>
+
+
+  <p class="field">
+    <%= form.label :bonus %>
+    <%= form.check_box :bonus %>
+  </p>
 
   <div class="actions">
     <%= form.submit %>
