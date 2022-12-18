@@ -21,9 +21,9 @@ end
         a = Album.create(name: Faker::Music.album, band_id: b.id, year: Faker::Number.within(range: 1958..2022), live: Faker::Boolean.boolean(true_ratio: 0.2))
         i = 1
         10.times do
-            t = Track.create(name: Faker::Lorem.sentence(word_count: 2), album_id: a.id, ord: i, bonus: Faker::Boolean.boolean(true_ratio: 0.1), lyrics: Faker::Lorem.paragraph(sentence_count: 15))
+            t = Track.create(name: Faker::Lorem.word, album_id: a.id, ord: i, bonus: Faker::Boolean.boolean(true_ratio: 0.1), lyrics: Faker::Lorem.paragraph(sentence_count: 15))
             i+=1
-            n = Note.create(track_id: t.id, user_id: @u.id, content: Faker::Lorem.sentences(number: 1))
+            n = Note.create(track_id: t.id, user_id: @u.id, content: Faker::Lorem.sentences(number: 1).first)
         end
     end
 end
