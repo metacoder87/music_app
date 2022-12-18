@@ -1,3 +1,11 @@
 // Place all the styles related to the Tracks controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.lyrics {
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px;
+    color: black;
+    margin-left: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
