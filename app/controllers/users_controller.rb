@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show edit update destroy ]
 
   # GET /users or /users.json
   def index
@@ -29,8 +28,7 @@ class UsersController < ApplicationController
       if @user.save
 
         @user.activate!
-        login_user!(@user)
-        format.html { redirect_to root_url, notice: "User was successfully created." }
+        format.html { redirect_to new_session_url, notice: "User was successfully created." }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new, status: :unprocessable_entity }

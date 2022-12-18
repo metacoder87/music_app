@@ -1,7 +1,7 @@
 class User < ApplicationRecord
 
     validates :activation_token, :email, :session_token, uniqueness: true
-    validates :password, length: { minimum: 8, allow_nil: true }
+    validates :password, length: { minimum: 6, allow_nil: true }
     validates :email,
               :password_digest,
               :session_token,
@@ -15,7 +15,7 @@ class User < ApplicationRecord
 
     has_many :notes
 
-    def self.find_by_credentials(email, passwor)
+    def self.find_by_credentials(email, password)
         user = User.find_by(email: email)
 
         user && user.is_password?(password) ? user : nil
