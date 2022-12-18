@@ -5,20 +5,21 @@
   <%= @album.name %>
 </h1>
 
-<p>
-  <strong>Year:</strong>
+<h4 class='sub-header'>
+  Year:
   <%= @album.year %>
-</p>
+</h4>
 
-<p>
-  <strong>Live:</strong>
+<h4 class='sub-header'>
+  Live:
   <%= @album.live %>
-</p>
+</h4>
 
-<p>
-  <strong>Band:</strong>
-  <%= @album.band_id %>
-</p>
+<% band = Band.find_by(id: @album.band_id) %>
+<h4 class='sub-header'>
+  Band:
+  <%= band.name %>
+</h4>
 
 <% if @album.tracks.length > 0 %>
   <ul class='main-list'>
@@ -32,14 +33,14 @@
 
 <h4 class='sub-header'>Links</h4>
 <ul class='page-links'>
-  <li><%= link_to 'New Track |', new_album_track_url(@album) %></li>
-  <li><%= link_to 'Edit Album |', edit_album_path(@album) %></li>
+  <li class='button'><%= link_to 'New Track', new_album_track_url(@album) %></li>
+  <li class='button'><%= link_to 'Edit Album', edit_album_path(@album) %></li>
   <li>
     <form action="<%= album_url(@album) %>" method="POST">
       <input type="hidden" name="_method" value="DELETE">
       <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-      <input type="submit" value="Destroy Album |">
+      <input type="submit" value="Destroy Album">
     </form>
   </li>
-  <li><%= link_to 'Back to Band', band_url(@album.band) %></li>
+  <li class='button'><%= link_to 'Back to Band', band_url(@album.band) %></li>
 </ul>

@@ -1,3 +1,7 @@
+<% action_url = album.persisted? ? album_url(album) : albums_url %>
+<% http_method = album.persisted? ? "PATCH" : "POST" %>
+<% button_text = album.persisted? ? "Update Album!" : "Create Album!" %>
+
 <%= form_with(model: album, local: true) do |form| %>
   <% if album.errors.any? %>
     <div id="error_explanation">
@@ -10,26 +14,28 @@
       </ul>
     </div>
   <% end %>
+  
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  
 
-  <div class="field">
+  <% b = Band.find_by(id: album.band_id) %>
+  <input type="hidden" name="album[band_id]" value="<%= b.id %>">
+  <h4 class='sub-header'>Band: <%= b.name %></h4>
+
+  <p class="field">
     <%= form.label :name %>
     <%= form.text_field :name %>
-  </div>
+  </p>
 
-  <div class="field">
-    <%= form.label :year %>
-    <%= form.number_field :year %>
-  </div>
+  <p>
+    <label for='album-year'>Year</label>
+    <input id='album-year' type="number" min="1400" max="2024" name="album[year]" value="<%= album.year %>">
+  </p>
 
-  <div class="field">
+  <p class="field">
     <%= form.label :live %>
     <%= form.check_box :live %>
-  </div>
-
-  <div class="field">
-    <%= form.label :band_id %>
-    <%= form.text_field :band_id %>
-  </div>
+  </p>
 
   <div class="actions">
     <%= form.submit %>
