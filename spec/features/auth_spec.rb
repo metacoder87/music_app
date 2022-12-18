@@ -24,7 +24,7 @@ feature "the signup process" do
     before(:each) do
       visit new_user_url
       fill_in 'Email', :with => "testing@email.com"
-      click_on "create user"
+      click_on "Create User"
     end
 
     scenario "re-renders the new user page after failed signup" do
