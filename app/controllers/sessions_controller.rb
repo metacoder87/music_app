@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
       render :new
 
     elsif !user.activated?
-      flash.now[:errors] = ['You must activate you account! Check your email.']
+      flash.now[:errors] = ['You must activate your account! Check your email.']
       render :new
 
     else 
