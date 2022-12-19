@@ -24,17 +24,20 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
-    respond_to do |format|
+  
       if @user.save
-
         @user.activate!
-        format.html { redirect_to new_session_url, notice: "User was successfully created." }
-        format.json { render :show, status: :created, location: @user }
+        login_user!(@user)
+        flash.alert = "Successfully created your account! Check your inbox for an activation email."
+        redirect_to new_session_url
+        # ApplicationMailer.activation_email(@user).deliver_now!
+        # flash[:notice] = 'Successfully created your account! Check your inbox for an activation email.'
+        # redirect_to new_session_url
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        flash.now[:errors] = @user.errors.full_messages
+        render :new
       end
-    end
+
   end
 
   # PATCH/PUT /users/1 or /users/1.json
