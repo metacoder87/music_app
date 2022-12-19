@@ -12,7 +12,7 @@ feature "the signup process" do
       visit new_user_url
       fill_in 'Email', :with => "testing@email.com"
       fill_in 'Password', :with => "biscuits"
-      click_on "create user"
+      click_on "Create User"
     end
 
     scenario "redirects to sign-in page after signup" do
